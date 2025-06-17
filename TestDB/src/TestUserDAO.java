@@ -4,34 +4,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 
 public class TestUserDAO { 
-	String name = ""; 
-	String password = ""; 
-	public void select(String name,String password) {
-		DBConnector db = new DBConnector();  
-		Connection con = db.getConnection();
-		
-String sql ="select * from test_table where user_name=? and password=?"; 
-try{ 
-	PreparedStatement ps = con.prepareStatement(sql);
-	ps.setString(1, name); 
-	ps.setString (2, password); 
-	ResultSet rs=ps.executeQuery(); 
-	if (rs.next()) { 
-		System.out.println(rs.getString("user_name")); 
-		System.out.println(rs.getString("password")); 
-		} 
-	}catch (SQLException e ){ 
-		e.printStackTrace(); 
-		} 
-try{ 
-	con.close() ; 
-	//データベースとの接続を終了させるという意味です。
-	//これをしないとデータベースを接続したまま次の作業が実行されてしまい、メモリに負荷がかかりますので、
-	//終わりには必ず終了をするようにして下さい。
-} catch (SQLException e ) { 
-	e.printStackTrace(); 
-	} 
-}
+String name = ""; 
+String password = ""; 
+public void select(String name,String password) {
+	DBConnector db = new DBConnector(); 
+	Connection con = db.getConnection(); 
+	String sql ="select * from test_table where user_name=? and password=?"; 
+	try { 
+		PreparedStatement ps = con.prepareStatement(sql); 
+		ps.setString(1, name); 
+		ps.setString (2, password); 
+		ResultSet rs=ps.executeQuery(); 
+		if (rs.next()) { 
+			System.out.println(rs.getString("user_name")); 
+			System.out.println(rs.getString("password")); 
+			} 
+		} catch (SQLException e ) { 
+			e.printStackTrace(); 
+			} 
+	try { 
+		con.close() ; 
+		} catch (SQLException e ) { 
+			e.printStackTrace(); 
+			} 
+} 
 	public void selectAll() { 
 		DBConnector db = new DBConnector(); 
 		Connection con = db.getConnection(); 
@@ -101,7 +97,7 @@ try{
 			String sql ="update test_table set user_name=? where user_name=?"; 
 			try { 
 				PreparedStatement ps = con.prepareStatement(sql); 
-				ps.setString(1, newName); 
+				ps.setString(1, newName);
 				ps.setString (2, oldName); 
 				int i=ps.executeUpdate(); 
 				if (i>0) { 
