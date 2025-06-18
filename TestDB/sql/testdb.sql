@@ -10,4 +10,3 @@ create table test_table(
 INSERT INTO test_table VALUES (1, 'taro', '123');
 INSERT INTO test_table VALUES (2, 'jiro', '456');
 INSERT INTO test_table VALUES (3, 'hanako', '789');
-
